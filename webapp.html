@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f6f9fc, #dbe9f4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    #riddle-question {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #34495e;
+    }
+
+    #riddle-answer {
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      margin-bottom: 30px;
+      display: none;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      background: linear-gradient(to right, #4CAF50, #45a049);
+      color: white;
+      padding: 12px 28px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤔 Riddle Generator</h1>
+    <div id="riddle-question">Click the button to get a riddle!</div>
+    <div id="riddle-answer"></div>
+    <div class="btn-group">
+      <button onclick="generateRiddle()">New Riddle</button>
+      <button onclick="showAnswer()">Show Answer</button>
+    </div>
+  </div>
+
+  <script>
+    const riddles = [
+      { question: "What has to be broken before you can use it?", answer: "An egg." },
+      { question: "I’m tall when I’m young, and I’m short when I’m old. What am I?", answer: "A candle." },
+      { question: "What month of the year has 28 days?", answer: "All of them." },
+      { question: "What is full of holes but still holds water?", answer: "A sponge." },
+      { question: "What question can you never answer yes to?", answer: "Are you asleep yet?" },
+      { question: "What goes up but never comes down?", answer: "Your age." },
+      { question: "I have branches, but no fruit, trunk or leaves. What am I?", answer: "A bank." },
+      { question: "The more of me you take, the more you leave behind. What am I?", answer: "Footsteps." }
+    ];
+
+    let availableRiddles = [...riddles];
+
+    function generateRiddle() {
+      const riddleElement = document.getElementById("riddle-question");
+      const answerElement = document.getElementById("riddle-answer");
+
+      if (availableRiddles.length === 0) {
+        availableRiddles = [...riddles]; // Reset if all have been shown
+      }
+
+      const randomIndex = Math.floor(Math.random() * availableRiddles.length);
+      const selectedRiddle = availableRiddles.splice(randomIndex, 1)[0];
+
+      riddleElement.textContent = selectedRiddle.question;
+      answerElement.textContent = selectedRiddle.answer;
+      answerElement.style.display = "none";
+      answerElement.style.opacity = 0;
+    }
+
+    function showAnswer() {
+      const answerElement = document.getElementById("riddle-answer");
+      answerElement.style.display = "block";
+      setTimeout(() => {
+        answerElement.style.opacity = 1;
+      }, 10);
+    }
+  </script>
+</body>
+</html>
